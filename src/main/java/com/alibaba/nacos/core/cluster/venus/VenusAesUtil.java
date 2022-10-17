@@ -1,13 +1,11 @@
 package com.alibaba.nacos.core.cluster.venus;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 public final class VenusAesUtil {
     private static final String encodeRules = "venus";
@@ -39,7 +37,7 @@ public final class VenusAesUtil {
             //这里用Base64Encoder中会找不到包
             //解决办法：
             //在项目的Build path中先移除JRE System Library，再添加库JRE System Library，重新编译后就一切正常了。
-            String AES_encode = new String(new BASE64Encoder().encode(byte_AES));
+            String AES_encode = new String(Base64.getEncoder().encode(byte_AES));
             //11.将字符串返回
             return AES_encode;
         } catch (Exception e) {
@@ -77,7 +75,9 @@ public final class VenusAesUtil {
             //7.初始化密码器，第一个参数为加密(Encrypt_mode)或者解密(Decrypt_mode)操作，第二个参数为使用的KEY
             cipher.init(Cipher.DECRYPT_MODE, key);
             //8.将加密并编码后的内容解码成字节数组
-            byte[] byte_content = new BASE64Decoder().decodeBuffer(content);
+            Base64.Decoder decoder = Base64.getMimeDecoder();
+
+            byte[] byte_content = decoder.decode(content);
             /*
              * 解密
              */
@@ -98,7 +98,7 @@ public final class VenusAesUtil {
         for (String key : keys) {
             String encryptString = encrypt(key);
             System.out.println("加密 = " + encryptString);
-            String decryptString = decrypt(encryptString);
+            String decryptString = decrypt("lzrfUYSN9zArc9WqfHMqKQ==");
             System.out.println("解密 = " + decryptString);
         }
     }
