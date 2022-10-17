@@ -5,6 +5,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
 public class VenusSSLSocketFactory {
+
+
     public static SSLSocketFactory trustAllHosts(HttpsURLConnection connection) {
         SSLSocketFactory oldFactory = connection.getSSLSocketFactory();
         try {
@@ -17,4 +19,6 @@ public class VenusSSLSocketFactory {
         }
         return oldFactory;
     }
+
+
 }
