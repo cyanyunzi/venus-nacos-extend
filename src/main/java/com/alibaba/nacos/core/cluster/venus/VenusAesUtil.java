@@ -93,15 +93,14 @@ public final class VenusAesUtil {
 
 
     public static void main(String[] args) {
-        String[] keys = {"root"};
+        String[] keys = {"venustech.taihe.db.CONF"};
 
         for (String key : keys) {
             String encryptString = encrypt(key);
             System.out.println("加密 = " + encryptString);
-            String decryptString = decrypt("lzrfUYSN9zArc9WqfHMqKQ==");
+            String decryptString = decrypt(encryptString);
             System.out.println("解密 = " + decryptString);
         }
     }
-
-
 }
+
